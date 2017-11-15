@@ -118,14 +118,15 @@ public class FetcherMetricsRegistry {
                 "The total number of records consumed for a topic", topicTags);
         
         /***** Partition level *****/
-        this.partitionRecordsLag = new MetricNameTemplate("{topic}-{partition}.records-lag", groupName, 
-                "The latest lag of the partition", tags);
-        this.partitionRecordsLagMax = new MetricNameTemplate("{topic}-{partition}.records-lag-max", groupName, 
-                "The max lag of the partition", tags);
-        this.partitionRecordsLagAvg = new MetricNameTemplate("{topic}-{partition}.records-lag-avg", groupName, 
-                "The average lag of the partition", tags);
+        Set<String> partitionTags = new HashSet<>(topicTags);
+        partitionTags.add("partition");
+        this.partitionRecordsLag = new MetricNameTemplate("records-lag", groupName,
+                "The latest lag of the partition", partitionTags);
+        this.partitionRecordsLagMax = new MetricNameTemplate("records-lag-max", groupName,
+                "The max lag of the partition", partitionTags);
+        this.partitionRecordsLagAvg = new MetricNameTemplate("records-lag-avg", groupName,
+                "The average lag of the partition", partitionTags);
         
-    
     }
     
     public List<MetricNameTemplate> getAllTemplates() {
